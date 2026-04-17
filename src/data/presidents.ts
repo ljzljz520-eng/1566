@@ -24,7 +24,7 @@ export const presidents: President[] = [
       { year: 1781, title: '约克镇大捷', description: '在约克镇战役中击败英军，独立战争取得决定性胜利' },
       { year: 1789, title: '就任第一任总统', description: '全票当选美国第一任总统' }
     ],
-    portrait: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg/440px-Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg',
+    portrait: 'https://picsum.photos/seed/president1/400/500',
     images: [],
     videos: [],
     relations: []
@@ -51,7 +51,7 @@ export const presidents: President[] = [
       { year: 1776, title: '签署独立宣言', description: '作为大陆会议代表签署《独立宣言》' },
       { year: 1797, title: '就任第二任总统', description: '击败杰斐逊当选总统' }
     ],
-    portrait: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/John_Adams_A18236.jpg/440px-John_Adams_A18236.jpg',
+    portrait: 'https://picsum.photos/seed/president2/400/500',
     images: [],
     videos: [],
     relations: []
@@ -78,7 +78,7 @@ export const presidents: President[] = [
       { year: 1776, title: '起草独立宣言', description: '撰写《独立宣言》的主要内容' },
       { year: 1803, title: '路易斯安那购地', description: '从法国购买路易斯安那地区' }
     ],
-    portrait: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Thomas_Jefferson_by_Rembrandt_Peale%2C_1800.jpg/440px-Thomas_Jefferson_by_Rembrandt_Peale%2C_1800.jpg',
+    portrait: 'https://picsum.photos/seed/president3/400/500',
     images: [],
     videos: [],
     relations: []
@@ -106,7 +106,7 @@ export const presidents: President[] = [
       { year: 1863, title: '解放黑人奴隶宣言', description: '颁布《解放黑人奴隶宣言》' },
       { year: 1865, title: '内战结束遇刺', description: '南北战争结束后遇刺身亡' }
     ],
-    portrait: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg/440px-Abraham_Lincoln_O-77_matte_collodion_print.jpg',
+    portrait: 'https://picsum.photos/seed/president16/400/500',
     images: [],
     videos: [],
     relations: []
@@ -134,7 +134,7 @@ export const presidents: President[] = [
       { year: 1941, title: '珍珠港事件', description: '日本偷袭珍珠港，美国加入二战' },
       { year: 1945, title: '雅尔塔会议', description: '与丘吉尔、斯大林举行雅尔塔会议' }
     ],
-    portrait: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/FDR_1944_Color_Portrait.jpg/440px-FDR_1944_Color_Portrait.jpg',
+    portrait: 'https://picsum.photos/seed/president32/400/500',
     images: [],
     videos: [],
     relations: []
@@ -162,7 +162,7 @@ export const presidents: President[] = [
       { year: 1962, title: '古巴导弹危机', description: '成功处理古巴导弹危机' },
       { year: 1963, title: '遇刺身亡', description: '在达拉斯遇刺身亡' }
     ],
-    portrait: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg/440px-John_F._Kennedy%2C_White_House_color_photo_portrait.jpg',
+    portrait: 'https://picsum.photos/seed/president35/400/500',
     images: [],
     videos: [],
     relations: []
@@ -190,7 +190,7 @@ export const presidents: President[] = [
       { year: 1987, title: '戈尔巴乔夫峰会', description: '与苏联领导人戈尔巴乔夫举行峰会' },
       { year: 1989, title: '柏林墙倒塌', description: '冷战标志性事件' }
     ],
-    portrait: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Official_Portrait_of_President_Reagan_1981.jpg/440px-Official_Portrait_of_President_Reagan_1981.jpg',
+    portrait: 'https://picsum.photos/seed/president40/400/500',
     images: [],
     videos: [],
     relations: []
@@ -218,7 +218,7 @@ export const presidents: President[] = [
       { year: 2010, title: '医改法案通过', description: '奥巴马医改法案获得通过' },
       { year: 2011, title: '击毙本·拉登', description: '美军击毙基地组织领导人本·拉登' }
     ],
-    portrait: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/440px-President_Barack_Obama.jpg',
+    portrait: 'https://picsum.photos/seed/president44/400/500',
     images: [],
     videos: [],
     relations: []
@@ -246,7 +246,7 @@ export const presidents: President[] = [
       { year: 2019, title: '第一次弹劾', description: '成为第三位被弹劾的总统' },
       { year: 2021, title: '国会山骚乱', description: '支持者冲击国会山' }
     ],
-    portrait: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/440px-Donald_Trump_official_portrait.jpg',
+    portrait: 'https://picsum.photos/seed/president45/400/500',
     images: [],
     videos: [],
     relations: []
@@ -274,7 +274,7 @@ export const presidents: President[] = [
       { year: 2021, title: '基础设施法案', description: '基础设施投资法案获得通过' },
       { year: 2022, title: '通胀削减法案', description: '通过通胀削减法案' }
     ],
-    portrait: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Joe_Biden_presidential_portrait.jpg/440px-Joe_Biden_presidential_portrait.jpg',
+    portrait: 'https://picsum.photos/seed/president46/400/500',
     images: [],
     videos: [],
     relations: []

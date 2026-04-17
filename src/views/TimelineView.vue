@@ -2,24 +2,24 @@
   <div class="timeline-view">
     <el-card class="header-card">
       <h2>{{ t('timeline.title') }}</h2>
-      <p class="subtitle">按时间顺序浏览美国总统历史</p>
+      <p class="subtitle">{{ t('timeline.subtitle') }}</p>
     </el-card>
 
     <div class="chart-container">
       <el-card>
-        <h3>总统任职时间轴</h3>
+        <h3>{{ t('timeline.termTimeline') }}</h3>
         <v-chart :option="timelineOption" style="height: 800px; width: 100%" autoresize />
       </el-card>
     </div>
 
     <div class="timeline-container" style="margin-top: 30px">
       <el-card>
-        <h3>详细时间线</h3>
+        <h3>{{ t('timeline.detailedTimeline') }}</h3>
         <el-timeline v-if="sortedPresidents.length > 0">
           <el-timeline-item
             v-for="president in sortedPresidents"
             :key="president.id"
-            :timestamp="`${president.termStart} - ${president.termEnd || '现任'}`"
+            :timestamp="`${president.termStart} - ${president.termEnd || t('president.current')}`"
             placement="top"
             :type="getTimelineType(president.party)"
             :color="getTimelineColor(president.party)"
@@ -119,8 +119,8 @@ const timelineOption = computed<EChartsOption>(() => {
           <div style="padding: 10px">
             <h4 style="margin: 0 0 10px 0">${p.name}</h4>
             <p style="margin: 5px 0">${p.nameEn}</p>
-            <p style="margin: 5px 0">任职: ${p.termStart} - ${p.termEnd || '现任'}</p>
-            <p style="margin: 5px 0">政党: ${getPartyLabel(p.party)}</p>
+            <p style="margin: 5px 0">${t('timeline.termLabel')}: ${p.termStart} - ${p.termEnd || t('president.current')}</p>
+            <p style="margin: 5px 0">${t('timeline.partyLabel')}: ${getPartyLabel(p.party)}</p>
           </div>
         `
       }
@@ -192,7 +192,7 @@ const timelineOption = computed<EChartsOption>(() => {
 
 function getPartyLabel(party: string): string {
   const partyMap: Record<string, string> = {
-    independent: '独立',
+    independent: t('president.independent'),
     federalist: t('parties.federalist'),
     democraticRepublican: t('parties.democraticRepublican'),
     democratic: t('parties.democratic'),

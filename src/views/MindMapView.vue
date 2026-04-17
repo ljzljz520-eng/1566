@@ -2,20 +2,20 @@
   <div class="mindmap-view">
     <el-card class="header-card">
       <h2>{{ t('mindmap.title') }}</h2>
-      <p class="subtitle">探索美国总统之间的政治派别与关系</p>
+      <p class="subtitle">{{ t('mindmap.subtitle') }}</p>
     </el-card>
 
     <el-row :gutter="20">
       <el-col :xs="24" :lg="16">
         <el-card class="chart-card">
-          <h3>政党分布与任期可视化</h3>
+          <h3>{{ t('mindmap.partyDistribution') }}</h3>
           <v-chart :option="pieOption" style="height: 500px; width: 100%" autoresize />
         </el-card>
       </el-col>
 
       <el-col :xs="24" :lg="8">
         <el-card class="legend-card">
-          <h3>政党统计</h3>
+          <h3>{{ t('mindmap.partyStats') }}</h3>
           <div class="party-stats">
             <div
               v-for="stat in partyStats"
@@ -24,16 +24,16 @@
               :style="{ borderLeftColor: stat.color }"
             >
               <div class="stat-name">{{ stat.name }}</div>
-              <div class="stat-count">{{ stat.count }} 位总统</div>
+              <div class="stat-count">{{ stat.count }} {{ t('mindmap.presidentsCount') }}</div>
               <div class="stat-percentage">{{ stat.percentage }}%</div>
             </div>
           </div>
         </el-card>
 
         <el-card class="network-card" style="margin-top: 20px">
-          <h3>按政党筛选</h3>
+          <h3>{{ t('mindmap.filterByParty') }}</h3>
           <el-radio-group v-model="selectedParty" @change="filterByParty">
-            <el-radio-button value="">全部</el-radio-button>
+            <el-radio-button value="">{{ t('mindmap.all') }}</el-radio-button>
             <el-radio-button
               v-for="stat in partyStats"
               :key="stat.party"
@@ -47,7 +47,7 @@
     </el-row>
 
     <el-card class="presidents-grid" style="margin-top: 20px">
-      <h3>总统列表</h3>
+      <h3>{{ t('mindmap.presidentList') }}</h3>
       <el-row :gutter="20">
         <el-col
           v-for="president in filteredPresidents"
@@ -82,7 +82,7 @@
             <div class="mini-info">
               <div class="mini-number">#{{ president.id }}</div>
               <div class="mini-name">{{ president.name }}</div>
-              <div class="mini-term">{{ president.termStart }}-{{ president.termEnd || '现任' }}</div>
+              <div class="mini-term">{{ president.termStart }}-{{ president.termEnd || t('president.current') }}</div>
             </div>
           </el-card>
         </el-col>
@@ -90,7 +90,7 @@
     </el-card>
 
     <el-card class="relation-chart" style="margin-top: 20px">
-      <h3>总统政党关系图</h3>
+      <h3>{{ t('mindmap.partyRelationGraph') }}</h3>
       <v-chart :option="graphOption" style="height: 600px; width: 100%" autoresize />
     </el-card>
   </div>
@@ -139,13 +139,13 @@ const partyColors: Record<string, string> = {
 }
 
 const partyNames: Record<string, { name: string; shortName: string }> = {
-  independent: { name: '无党派/独立', shortName: '独立' },
-  federalist: { name: '联邦党', shortName: '联邦' },
-  democraticRepublican: { name: '民主共和党', shortName: '民主共和' },
-  democratic: { name: '民主党', shortName: '民主' },
-  whig: { name: '辉格党', shortName: '辉格' },
-  republican: { name: '共和党', shortName: '共和' },
-  nationalUnion: { name: '国家联盟党', shortName: '联盟' }
+  independent: { name: 'Independent', shortName: 'Ind' },
+  federalist: { name: 'Federalist', shortName: 'Fed' },
+  democraticRepublican: { name: 'Democratic-Republican', shortName: 'DR' },
+  democratic: { name: 'Democratic', shortName: 'Dem' },
+  whig: { name: 'Whig', shortName: 'Whig' },
+  republican: { name: 'Republican', shortName: 'GOP' },
+  nationalUnion: { name: 'National Union', shortName: 'NU' }
 }
 
 const partyStats = computed(() => {
@@ -173,12 +173,12 @@ const filteredPresidents = computed(() => {
 const pieOption = computed<EChartsOption>(() => {
   return {
     title: {
-      text: '美国总统政党分布',
+      text: t('mindmap.partyDistributionTitle'),
       left: 'center'
     },
     tooltip: {
       trigger: 'item',
-      formatter: '{b}: {c} 位 ({d}%)'
+      formatter: `{b}: {c} ${t('mindmap.presidentsCount')} ({d}%)`
     },
     legend: {
       orient: 'vertical',
@@ -198,7 +198,7 @@ const pieOption = computed<EChartsOption>(() => {
         },
         label: {
           show: true,
-          formatter: '{b}\n{c}位'
+          formatter: `{b}\n{c}${t('mindmap.presidentsCount')}`
         },
         emphasis: {
           label: {
@@ -252,7 +252,7 @@ const graphOption = computed<EChartsOption>(() => {
 
   return {
     title: {
-      text: '总统政党关系图（同党连接）',
+      text: t('mindmap.partyRelationGraph'),
       left: 'center'
     },
     tooltip: {
@@ -264,8 +264,8 @@ const graphOption = computed<EChartsOption>(() => {
               <div style="padding: 10px">
                 <h4>${p.name}</h4>
                 <p>${p.nameEn}</p>
-                <p>政党: ${partyNames[p.party]?.name || p.party}</p>
-                <p>任职: ${p.termStart} - ${p.termEnd || '现任'}</p>
+                <p>${t('mindmap.party')}: ${partyNames[p.party]?.name || p.party}</p>
+                <p>${t('mindmap.term')}: ${p.termStart} - ${p.termEnd || t('president.current')}</p>
               </div>
             `
           }

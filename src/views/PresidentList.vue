@@ -44,7 +44,7 @@
           <el-card class="stat-card">
             <div class="stat-content">
               <div class="stat-number">{{ presidents.length }}</div>
-              <div class="stat-label">总人数</div>
+              <div class="stat-label">{{ t('president.totalCount') }}</div>
             </div>
           </el-card>
         </el-col>
@@ -52,7 +52,7 @@
           <el-card class="stat-card">
             <div class="stat-content">
               <div class="stat-number">{{ filteredPresidents.length }}</div>
-              <div class="stat-label">筛选结果</div>
+              <div class="stat-label">{{ t('president.filterResults') }}</div>
             </div>
           </el-card>
         </el-col>
@@ -60,7 +60,7 @@
           <el-card class="stat-card">
             <div class="stat-content">
               <div class="stat-number">{{ parties.length }}</div>
-              <div class="stat-label">政党数量</div>
+              <div class="stat-label">{{ t('president.partyCount') }}</div>
             </div>
           </el-card>
         </el-col>
@@ -68,7 +68,7 @@
           <el-card class="stat-card">
             <div class="stat-content">
               <div class="stat-number">{{ getTermRange }}</div>
-              <div class="stat-label">时间跨度</div>
+              <div class="stat-label">{{ t('president.timeSpan') }}</div>
             </div>
           </el-card>
         </el-col>
@@ -113,7 +113,7 @@
               <p class="president-name-en">{{ president.nameEn }}</p>
               <div class="term-info">
                 <el-icon><Calendar /></el-icon>
-                <span>{{ president.termStart }} - {{ president.termEnd || '现任' }}</span>
+                <span>{{ president.termStart }} - {{ president.termEnd || t('president.current') }}</span>
               </div>
               <div class="achievements-preview">
                 <el-tag
@@ -133,7 +133,7 @@
 
       <el-empty
         v-if="filteredPresidents.length === 0"
-        description="没有找到匹配的总统"
+        :description="t('president.noMatchFound')"
         style="margin-top: 50px"
       />
     </div>
@@ -174,7 +174,7 @@ const getTermRange = computed(() => {
 
 function getPartyLabel(party: string): string {
   const partyMap: Record<string, string> = {
-    independent: '独立',
+    independent: t('president.independent'),
     federalist: t('parties.federalist'),
     democraticRepublican: t('parties.democraticRepublican'),
     democratic: t('parties.democratic'),

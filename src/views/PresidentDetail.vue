@@ -6,7 +6,7 @@
       @click="goBack"
       style="margin-bottom: 20px"
     >
-      返回列表
+      {{ t('president.backToList') }}
     </el-button>
 
     <el-row :gutter="20">
@@ -44,7 +44,7 @@
               <div class="info-item">
                 <el-icon><Calendar /></el-icon>
                 <span class="label">{{ t('president.term') }}:</span>
-                <span class="value">{{ president.termStart }} - {{ president.termEnd || '现任' }}</span>
+                <span class="value">{{ president.termStart }} - {{ president.termEnd || t('president.current') }}</span>
               </div>
               <div class="info-item">
                 <el-icon><Star /></el-icon>
@@ -76,19 +76,19 @@
           <el-tabs v-model="activeTab" type="border-card">
             <el-tab-pane :label="t('president.biography')" name="biography">
               <div class="tab-content">
-                <h3>生平简介</h3>
+                <h3>{{ t('president.biography') }}</h3>
                 <p class="biography-text">{{ president.biography }}</p>
               </div>
             </el-tab-pane>
 
             <el-tab-pane :label="t('president.achievements')" name="achievements">
               <div class="tab-content">
-                <h3>主要成就</h3>
+                <h3>{{ t('president.achievements') }}</h3>
                 <el-timeline>
                   <el-timeline-item
                     v-for="(achievement, index) in president.achievements"
                     :key="index"
-                    :timestamp="`成就 ${index + 1}`"
+                    :timestamp="`${t('president.achievement')} ${index + 1}`"
                     placement="top"
                   >
                     <el-card>
@@ -101,7 +101,7 @@
 
             <el-tab-pane :label="t('president.keyEvents')" name="events">
               <div class="tab-content">
-                <h3>关键事件</h3>
+                <h3>{{ t('president.keyEvents') }}</h3>
                 <el-timeline>
                   <el-timeline-item
                     v-for="event in president.keyEvents"
@@ -121,7 +121,7 @@
 
             <el-tab-pane :label="t('president.historicalBackground')" name="background">
               <div class="tab-content">
-                <h3>历史背景</h3>
+                <h3>{{ t('president.historicalBackground') }}</h3>
                 <p class="background-text">{{ president.historicalBackground }}</p>
               </div>
             </el-tab-pane>
@@ -131,12 +131,12 @@
     </el-row>
 
     <el-card class="chart-section" style="margin-top: 20px">
-      <h3>任职时间对比</h3>
+      <h3>{{ t('president.termComparison') }}</h3>
       <v-chart :option="chartOption" style="height: 400px; width: 100%" autoresize />
     </el-card>
   </div>
 
-  <el-empty v-else description="总统信息不存在" />
+  <el-empty v-else :description="t('president.notFound')" />
 </template>
 
 <script setup lang="ts">
@@ -188,7 +188,7 @@ const chartOption = computed<EChartsOption>(() => {
   const allPresidents = store.presidents.slice(0, 10)
   return {
     title: {
-      text: '总统任职年限对比',
+      text: t('president.termComparisonTitle'),
       left: 'center'
     },
     tooltip: {
@@ -197,15 +197,16 @@ const chartOption = computed<EChartsOption>(() => {
         const data = params[0]
         const p = allPresidents.find(p => p.name === data.name)
         if (p) {
-          return `${p.name}<br/>任职: ${p.termStart} - ${p.termEnd || '现任'}<br/>年限: ${data.value} 年`
+          return `${p.name}<br/>${t('president.termLabel')}: ${p.termStart} - ${p.termEnd || t('president.current')}<br/>${t('president.termYears')}: ${data.value} ${t('president.years')}`
         }
         return ''
       }
     },
     grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
+      left: '5%',
+      right: '5%',
+      top: '15%',
+      bottom: '15%',
       containLabel: true
     },
     xAxis: {
@@ -218,11 +219,11 @@ const chartOption = computed<EChartsOption>(() => {
     },
     yAxis: {
       type: 'value',
-      name: '任职年限（年）'
+      name: t('president.termYears')
     },
     series: [
       {
-        name: '任职年限',
+        name: t('president.termYears'),
         type: 'bar',
         data: allPresidents.map(p => {
           const end = p.termEnd || new Date().getFullYear()
@@ -243,7 +244,7 @@ const chartOption = computed<EChartsOption>(() => {
 
 function getPartyLabel(party: string): string {
   const partyMap: Record<string, string> = {
-    independent: '独立',
+    independent: t('president.independent'),
     federalist: t('parties.federalist'),
     democraticRepublican: t('parties.democraticRepublican'),
     democratic: t('parties.democratic'),
