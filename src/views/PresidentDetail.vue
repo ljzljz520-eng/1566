@@ -18,6 +18,9 @@ const previewVisible = ref(false)
 onMounted(() => {
   const id = Number(route.params.id)
   president.value = store.getPresidentById(id) || null
+  if (!president.value) {
+    router.push('/presidents')
+  }
 })
 
 const getPartyTagType = (party: string) => {
@@ -38,6 +41,11 @@ const handlePreview = (url: string) => {
   previewVisible.value = true
 }
 
+const handleImageError = (e: Event) => {
+  const target = e.target as HTMLImageElement
+  target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjM4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZTBlMGUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuWbvueJh+WKoOi9veWksei0pTwvdGV4dD48L3N2Zz4='
+}
+
 const timelineData = computed(() => {
   if (!president.value) return []
   return president.value.keyEvents.map(event => ({
@@ -51,10 +59,6 @@ const achievementsList = computed(() => {
   if (!president.value) return []
   return locale.value === 'zh-CN' ? president.value.achievements : president.value.achievementsEn
 })
-
-if (!president.value) {
-  router.push('/presidents')
-}
 </script>
 
 <template>
@@ -69,7 +73,7 @@ if (!president.value) {
         <div class="profile-header">
           <div class="portrait-wrapper">
             <div class="order-badge">#{{ president.order }}</div>
-            <img :src="president.portrait" :alt="president.name" class="portrait" />
+            <img :src="president.portrait" :alt="president.name" class="portrait" @error="handleImageError" />
           </div>
           <div class="profile-info">
             <h1>{{ locale === 'zh-CN' ? president.name : president.nameEn }}</h1>

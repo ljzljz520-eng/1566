@@ -6,14 +6,15 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import ECharts from 'vue-echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { BarChart, LineChart, PieChart, TreeChart, GraphChart } from 'echarts/charts'
+import { BarChart, LineChart, PieChart, TreeChart, GraphChart, CustomChart } from 'echarts/charts'
 import {
   TitleComponent,
   TooltipComponent,
   LegendComponent,
   GridComponent,
   DatasetComponent,
-  TransformComponent
+  TransformComponent,
+  DataZoomComponent
 } from 'echarts/components'
 import App from './App.vue'
 import router from './router'
@@ -27,12 +28,14 @@ use([
   PieChart,
   TreeChart,
   GraphChart,
+  CustomChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
   GridComponent,
   DatasetComponent,
-  TransformComponent
+  TransformComponent,
+  DataZoomComponent
 ])
 
 const app = createApp(App)

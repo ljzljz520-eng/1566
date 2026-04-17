@@ -45,6 +45,11 @@ const getPartyTagType = (party: string) => {
   }
   return typeMap[party] || 'info'
 }
+
+const handleImageError = (e: Event) => {
+  const target = e.target as HTMLImageElement
+  target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjI4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZTBlMGUwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuWbvueJh+WKoOi9veWksei0pTwvdGV4dD48L3N2Zz4='
+}
 </script>
 
 <template>
@@ -108,7 +113,7 @@ const getPartyTagType = (party: string) => {
           >
             <div class="card-content">
               <div class="order-badge">#{{ president.order }}</div>
-              <img :src="president.portrait" :alt="president.name" class="president-portrait" />
+              <img :src="president.portrait" :alt="president.name" class="president-portrait" @error="handleImageError" />
               <div class="president-info">
                 <h3>{{ locale === 'zh-CN' ? president.name : president.nameEn }}</h3>
                 <p class="name-en">{{ locale === 'zh-CN' ? president.nameEn : president.name }}</p>

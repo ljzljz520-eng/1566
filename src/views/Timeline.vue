@@ -34,31 +34,44 @@ const sortedPresidents = computed(() => {
 })
 
 const timelineChartData = computed(() => {
-  const data = sortedPresidents.value.map(p => ({
-    name: locale.value === 'zh-CN' ? p.name : p.nameEn,
-    value: [p.termStart, p.termEnd || new Date().getFullYear()],
-    itemStyle: {
-      color: getPartyColor(p.party)
+  const presidents = sortedPresidents.value
+  const categories = presidents.map(p => locale.value === 'zh-CN' ? p.name : p.nameEn)
+  
+  const seriesData = presidents.map((p, index) => {
+    const start = p.termStart
+    const end = p.termEnd || new Date().getFullYear()
+    return {
+      name: categories[index],
+      value: [index, start, end],
+      itemStyle: {
+        color: getPartyColor(p.party)
+      },
+      startYear: start,
+      endYear: end,
+      party: p.party
     }
-  }))
+  })
 
   return {
     tooltip: {
-      trigger: 'item'
-    },
-    dataZoom: [
-      {
-        type: 'slider',
-        show: true,
-        xAxisIndex: [0],
-        start: 0,
-        end: 100
+      trigger: 'item',
+      formatter: function(params: any) {
+        const data = params.data
+        const start = data.startYear
+        const end = data.endYear
+        return `${data.name}<br/>任期: ${start} - ${end === new Date().getFullYear() ? '现任' : end}`
       }
-    ],
+    },
+    grid: {
+      left: '18%',
+      right: '10%',
+      top: '8%',
+      bottom: '12%'
+    },
     xAxis: {
       type: 'value',
       min: 1780,
-      max: new Date().getFullYear(),
+      max: new Date().getFullYear() + 5,
       axisLabel: {
         formatter: '{value}',
         color: '#fff'
@@ -67,13 +80,20 @@ const timelineChartData = computed(() => {
         lineStyle: {
           color: 'rgba(255,255,255,0.3)'
         }
+      },
+      splitLine: {
+        lineStyle: {
+          color: 'rgba(255,255,255,0.1)'
+        }
       }
     },
     yAxis: {
       type: 'category',
-      data: data.map(d => d.name),
+      data: categories,
+      inverse: true,
       axisLabel: {
-        color: '#fff'
+        color: '#fff',
+        fontSize: 11
       },
       axisLine: {
         lineStyle: {
@@ -83,10 +103,32 @@ const timelineChartData = computed(() => {
     },
     series: [
       {
-        type: 'bar',
-        orientation: 'horizontal',
-        barWidth: 20,
-        data: data
+        type: 'custom',
+        renderItem: function(params: any, api: any) {
+          const categoryIndex = api.value(0)
+          const start = api.coord([api.value(1), categoryIndex])
+          const end = api.coord([api.value(2), categoryIndex])
+          const height = api.size([0, 1])[1] * 0.6
+          
+          const rectShape = {
+            x: start[0],
+            y: start[1] - height / 2,
+            width: end[0] - start[0],
+            height: height
+          }
+          
+          return {
+            type: 'rect',
+            shape: rectShape,
+            style: api.style()
+          }
+        },
+        dimensions: ['index', 'start', 'end'],
+        encode: {
+          x: [1, 2],
+          y: 0
+        },
+        data: seriesData
       }
     ]
   }
@@ -116,6 +158,11 @@ function getPartyTagType(party: string) {
     independent: 'info'
   }
   return typeMap[party] || 'info'
+}
+
+const handleImageError = (e: Event) => {
+  const target = e.target as HTMLImageElement
+  target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iMTAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlMGUwZTAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+5Zu+54mH5Yqg6L295aSx6LSlPC90ZXh0Pjwvc3ZnPg=='
 }
 </script>
 
@@ -156,7 +203,7 @@ function getPartyTagType(party: string) {
               @click="router.push(`/president/${president.id}`)"
             >
               <div class="timeline-card-content">
-                <img :src="president.portrait" :alt="president.name" class="mini-portrait" />
+                <img :src="president.portrait" :alt="president.name" class="mini-portrait" @error="handleImageError" />
                 <div class="card-info">
                   <div class="card-header">
                     <h3>{{ locale === 'zh-CN' ? president.name : president.nameEn }}</h3>
