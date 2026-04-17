@@ -6,7 +6,7 @@
           <h1>🇺🇸 {{ $t('presidentList.title') }}</h1>
         </div>
         <el-menu
-          :default-active="$route.name as string"
+          :default-active="currentActiveMenu"
           mode="horizontal"
           :router="true"
           class="nav-menu"
@@ -60,11 +60,21 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { useAppStore } from '@/stores/app'
 import type { LocaleType } from '@/i18n'
 import { ArrowDown } from '@element-plus/icons-vue'
 
+const route = useRoute()
 const appStore = useAppStore()
+
+const currentActiveMenu = computed(() => {
+  if (route.name === 'PresidentDetail') {
+    return 'Presidents'
+  }
+  return route.name as string
+})
 
 const handleLanguageChange = (locale: string) => {
   appStore.setLocale(locale as LocaleType)

@@ -93,7 +93,7 @@
           </el-timeline>
         </div>
 
-        <div v-if="president.images.length > 0" class="images-section card">
+        <div v-if="president && president.images.length > 0" class="images-section card">
           <h3 class="section-title">
             <el-icon><Picture /></el-icon>
             {{ $t('common.images') }}
@@ -110,7 +110,7 @@
           </div>
         </div>
 
-        <div v-if="president.relations.length > 0" class="relations-section card">
+        <div v-if="president && president.relations.length > 0" class="relations-section card">
           <h3 class="section-title">
             <el-icon><Connection /></el-icon>
             {{ $t('common.relations') }}
