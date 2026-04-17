@@ -12,16 +12,16 @@
           class="nav-menu"
           :collapse-on-click="false"
         >
-          <el-menu-item index="Presidents">
+          <el-menu-item index="/presidents">
             {{ $t('nav.presidents') }}
           </el-menu-item>
-          <el-menu-item index="Timeline">
+          <el-menu-item index="/timeline">
             {{ $t('nav.timeline') }}
           </el-menu-item>
-          <el-menu-item index="MindMap">
+          <el-menu-item index="/mindmap">
             {{ $t('nav.mindmap') }}
           </el-menu-item>
-          <el-menu-item index="Statistics">
+          <el-menu-item index="/statistics">
             {{ $t('nav.statistics') }}
           </el-menu-item>
         </el-menu>
@@ -70,10 +70,10 @@ const route = useRoute()
 const appStore = useAppStore()
 
 const currentActiveMenu = computed(() => {
-  if (route.name === 'PresidentDetail') {
-    return 'Presidents'
+  if (route.path.startsWith('/president/')) {
+    return '/presidents'
   }
-  return route.name as string
+  return route.path
 })
 
 const handleLanguageChange = (locale: string) => {

@@ -93,20 +93,23 @@
           </el-timeline>
         </div>
 
-        <div v-if="president && president.images.length > 0" class="images-section card">
+        <div class="images-section card">
           <h3 class="section-title">
             <el-icon><Picture /></el-icon>
             {{ $t('common.images') }}
           </h3>
           <div class="images-grid">
             <div
-              v-for="(image, index) in president.images"
+              v-for="(image, index) in (president?.images || [])"
               :key="index"
               class="image-item"
-              @click="showImageViewer = true; initialImageIndex = index"
+              @click="() => { showImageViewer = true; initialImageIndex = index; console.log('click image', index) }"
             >
               <img :src="image" alt="President image" class="gallery-image" />
             </div>
+          </div>
+          <div v-if="!president?.images || president.images.length === 0" class="empty-tip">
+            暂无图片
           </div>
         </div>
 
